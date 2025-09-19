@@ -18,6 +18,14 @@ function demarrerJeu() {
     boutonResetScores.addEventListener("click", resetScores)
     boutonCreerK.addEventListener("click", definirK)
 
+    const sauvegarde = localStorage.getItem("scores");
+    if (sauvegarde) {
+        const data = JSON.parse(sauvegarde);
+        scores.X = data.X;
+        scores.O = data.O;
+        mettreAJourScores();
+    }
+
     inputTaille.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
             creerGrille()
@@ -45,8 +53,7 @@ function definirK() {
     }
 
     numberK = valeurK
-    ///////numberk nombre de cases alignées pour gagner
-
+    alert("Valeur de K définie à " + numberK)
 }
 
 function creerGrille() {
@@ -79,7 +86,7 @@ function dessinerGrille() {
 
     plateau.style.gridTemplateColumns = "repeat(" + tailleGrille + ", 1fr)"
 
-    const taillePlateau = Math.min(400, window.innerWidth - 100)
+    const taillePlateau = Math.min(300, window.innerWidth - 100)
     const tailleCase = Math.floor(taillePlateau / tailleGrille) - 5
 
     for (let i = 0; i < tailleGrille * tailleGrille; i++) {
@@ -117,8 +124,9 @@ function clicSurCase(index) {
         const status = document.getElementById("status")
         status.classList.add("winner")
 
-        scores[joueurActuel]++
-        mettreAJourScores()
+        scores[joueurActuel]++;
+        localStorage.setItem("scores", JSON.stringify(scores));
+        mettreAJourScores();
         return
     }
 
@@ -159,39 +167,55 @@ function verifierVictoire() {
 
     return false
 
-    // khsni nzid number k hna
 }
 
 function creerCombinaisonsGagnantes() {
     const combinaisons = []
+    const n = tailleGrille
+    const k = numberK
 
-    for (let ligne = 0; ligne < tailleGrille; ligne++) {
-        const combinaisonLigne = []
-        for (let colonne = 0; colonne < tailleGrille; colonne++) {
-            combinaisonLigne.push(ligne * tailleGrille + colonne)
+    // horizontal 
+    for (let row = 0; row < n; row++) {
+        for (let column = 0; column <= n - k; column++) {
+            const seq = []
+            for (let i = 0; i < k; i++) {
+                seq.push(row * n + (column + i))
+            }
+            combinaisons.push(seq)
         }
-        combinaisons.push(combinaisonLigne)
     }
-
-    for (let colonne = 0; colonne < tailleGrille; colonne++) {
-        const combinaisonColonne = []
-        for (let ligne = 0; ligne < tailleGrille; ligne++) {
-            combinaisonColonne.push(ligne * tailleGrille + colonne)
+    // vertical
+    for (let column = 0; column < n; column++) {
+        for (let row = 0; row <= n - k; row++) {
+            const seq = []
+            for (let i = 0; i < k; i++) {
+                seq.push((row + i) * n + column)
+            }
+            combinaisons.push(seq)
         }
-        combinaisons.push(combinaisonColonne)
     }
 
-    const diagonalePrincipale = []
-    for (let i = 0; i < tailleGrille; i++) {
-        diagonalePrincipale.push(i * tailleGrille + i)
+    // diagonal \
+    for (let row = 0; row <= n - k; row++) {
+        for (let column = 0; column <= n - k; column++) {
+            const seq = []
+            for (let i = 0; i < k; i++) {
+                seq.push((row + i) * n + (column + i))
+            }
+            combinaisons.push(seq)
+        }
     }
-    combinaisons.push(diagonalePrincipale)
 
-    const diagonaleSecondaire = []
-    for (let i = 0; i < tailleGrille; i++) {
-        diagonaleSecondaire.push(i * tailleGrille + (tailleGrille - 1 - i))
+    // diagonal /
+    for (let row = 0; row <= n - k; row++) {
+        for (let column = k - 1; column < n; column++) {
+            const seq = []
+            for (let i = 0; i < k; i++) {
+                seq.push((row + i) * n + (column - i))
+            }
+            combinaisons.push(seq)
+        }
     }
-    combinaisons.push(diagonaleSecondaire)
 
     return combinaisons
 }
@@ -257,6 +281,7 @@ function recommencerJeu() {
 function resetScores() {
     scores.X = 0
     scores.O = 0
+    localStorage.setItem("scores", JSON.stringify(scores));
     mettreAJourScores()
 }
 

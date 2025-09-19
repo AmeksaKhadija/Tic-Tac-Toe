@@ -19,7 +19,7 @@ body {
 section {
   background: white;
   border-radius: 20px;
-  padding: 30px;
+  padding: 10px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   width: 100%;
@@ -27,19 +27,17 @@ section {
 }
 
 .title {
-  color: #333;
-  margin-bottom: 30px;
+  color: #4524bc;
+  margin-bottom: 20px;
   font-size: 2.5rem;
-  font-weight: 700;
   background: linear-gradient(135deg, #1a2556, #764ba2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .input-section {
-  margin-bottom: 30px;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  /* margin-bottom: 4px; */
   background: #f8f9fa;
   border-radius: 15px;
   border: 2px solid #e9ecef;
@@ -47,42 +45,52 @@ section {
 
 .input-group {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   align-items: center;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap;
+  padding: 8px 12px;
+  border-radius: 10px;
+  min-width: 220px;
 }
 
 .input-group label {
-  font-weight: 500;
-  color: #495057;
-  font-size: 1.1rem;
+  font-weight: 600;
+  color: #354052;
+  font-size: 0.98rem;
+  min-width: 110px;
+  text-align: left;
 }
 
 #gridSize {
-  padding: 10px 15px;
+  padding: 5px 10px;
   border: 2px solid #dee2e6;
   border-radius: 10px;
   font-size: 1rem;
   width: 80px;
   text-align: center;
-  font-family: "Poppins", sans-serif;
-  transition: all 0.3s ease;
 }
 
 #gridSize:focus {
-  outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #000000;
 }
-
+#gridK {
+  padding: 5px 10px;
+  border: 2px solid #dee2e6;
+  border-radius: 10px;
+  font-size: 1rem;
+  width: 80px;
+  text-align: center;
+}
+#gridK:focus {
+  border-color: #000000;
+}
 /* Enhanced score container */
 .score-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  padding: 20px;
+  padding: 5px;
   background: #f8f9fa;
   border-radius: 15px;
   gap: 20px;
@@ -114,24 +122,12 @@ section {
 .turn-indicator {
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
-  padding: 12px 20px;
+  padding: 8px 20px;
   border-radius: 25px;
   font-weight: 600;
   font-size: 1.1rem;
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
   animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
 }
 
 /* Dynamic game container */
@@ -206,18 +202,6 @@ section {
   color: white;
 }
 
-@keyframes celebration {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 /* Enhanced button styling */
 .button-container {
   display: flex;
@@ -227,9 +211,9 @@ section {
 }
 
 button {
-  padding: 12px 25px;
+  padding: 8px 20px;
   border: none;
-  border-radius: 25px;
+  border-radius: 20px;
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: 1rem;
@@ -241,7 +225,6 @@ button {
 .primary-btn {
   background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
 .primary-btn:hover {
