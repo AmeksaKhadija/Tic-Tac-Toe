@@ -1,1 +1,134 @@
 Tic Tac Toe Dynamique en JavaScript
+
+
+## Description
+
+Cette application est une implémentation dynamique du jeu Tic Tac Toe qui permet :
+
+=> Une grille personnalisable (n x n).
+
+=> La définition du nombre de symboles consécutifs pour gagner (K).
+
+=> Le suivi du tour des joueurs (X et O).
+
+=> La détection automatique de victoire ou de match nul.
+
+=> La sauvegarde persistante des scores via localStorage.
+
+L’objectif est de créer une version flexible du Tic Tac Toe classique, permettant des grilles plus grandes et des conditions de victoire modulables.
+
+
+# Fonctionnement du code
+### 1. Variables principales
+let tailleGrille = 3
+let etatJeu = []
+let joueurActuel = "X"
+let jeuActif = false
+let numberK = 3
+const scores = { X: 0, O: 0 }
+
+### 2. Initialisation (demarrerJeu)
+Lie les boutons et inputs aux fonctions correspondantes (click et Enter).
+
+Récupère les scores stockés dans le localStorage afin de les restaurer au chargement de la page.
+
+addEventListener pour créer la grille et définir K.
+
+### 3. Définir K (definirK)
+Permet à l’utilisateur de définir le nombre de symboles consécutifs nécessaires pour gagner.
+
+Vérifie que K est compris entre 3 et 10 et ne dépasse pas la taille de la grille.
+
+### 4. Créer la grille (creerGrille)
+
+Génère un tableau etatJeu vide de taille * taille.
+
+Réinitialise le joueur actuel à "X" et active le jeu.
+
+Appelle dessinerGrille() pour créer dynamiquement les cases dans le DOM.
+
+Met à jour le statut du jeu et l’indicateur du tour.
+
+### 5. Dessiner la grille (dessinerGrille)
+Crée chaque case en HTML et lui associe un index unique.
+
+Détermine la taille dynamique de chaque case selon la taille de la grille et la largeur de l’écran.
+
+Ajoute un écouteur de clic sur chaque case pour gérer le tour du joueur.
+
+### 6. Gestion des clics (clicSurCase)
+Vérifie que la case est vide et que le jeu est actif.
+
+Remplit la case avec le symbole du joueur actuel.
+
+Vérifie si le joueur a gagné (verifierVictoire) ou si la partie est nulle (verifierMatchNul).
+
+Met à jour les scores et les sauvegarde dans le localStorage.
+
+Change le joueur si le jeu continue.
+
+### 7. Vérification de victoire (verifierVictoire)
+Génère toutes les combinaisons gagnantes via creerCombinaisonsGagnantes().
+
+Parcourt chaque combinaison pour vérifier si un joueur a aligné K symboles consécutifs.
+
+### 8. Génération des combinaisons gagnantes (creerCombinaisonsGagnantes)
+Horizontal : toutes les séquences de K cases sur chaque ligne.
+
+Vertical : toutes les séquences de K cases sur chaque colonne.
+
+Diagonal \ : séquences diagonales de haut-gauche à bas-droite.
+
+Diagonal / : séquences diagonales de haut-droite à bas-gauche.
+
+### 9. Vérification du match nul (verifierMatchNul)
+Si toutes les cases sont remplies et qu’aucune victoire n’est détectée, la partie est déclarée match nul.
+
+### 10. Changement de joueur (changerJoueur)
+Alterne le joueur actuel entre "X" et "O".
+
+Met à jour le statut du jeu et l’indicateur du tour.
+
+### 11. Mise à jour de l’affichage
+mettreAJourStatus(message) : affiche un message pour le statut du jeu et retire les classes de victoire ou match nul.
+
+mettreAJourIndicateurTour() : indique quel joueur doit jouer.
+
+mettreAJourScores() : affiche les scores des deux joueurs dans le DOM.
+
+### 12. Recommencer la partie (recommencerJeu)
+Réinitialise toutes les cases de la grille.
+
+Conserve les scores et recommence la partie avec "X".
+
+### 13. Réinitialiser les scores (resetScores)
+
+Remet les scores à zéro.
+
+Sauvegarde cette réinitialisation dans le localStorage.
+
+
+
+## Fonctionnalités principales
+
+Grille dynamique : taille personnalisable de 3 à 10.
+
+K symboles pour gagner : nombre de symboles alignés configurable.
+
+Victoire et match nul détectés automatiquement.
+
+Scores persistants entre les parties grâce au localStorage.
+
+Interface responsive avec cases adaptées à la taille de l’écran.
+
+## Instructions d’utilisation
+
+Définir la taille de la grille (n) et le nombre de symboles pour gagner (K).
+
+Cliquer sur Créer la grille.
+
+Cliquer sur les cases pour jouer à tour de rôle.
+
+Le statut et les scores sont automatiquement mis à jour.
+
+Utiliser Recommencer pour une nouvelle partie ou Reset Scores pour remettre les scores à zéro.
